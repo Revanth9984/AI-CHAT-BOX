@@ -13,8 +13,7 @@ export default async function handler(req,res) {
     if(req.method!=="POST"){
         return res.status(405).json({error:"Only POST requests allowed"});
     }
-    const answer= await req.body.json();
-    const {question,pageText} = answer;
+    const {question,pageText} = req.body;
     if(!question || !pageText){
         return res.status(400).json({error:"Missing question or pagetext"});
     }
