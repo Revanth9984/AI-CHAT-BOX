@@ -1,6 +1,11 @@
 //This is a standard Next.js API route declaration. Can be used to make server online
 
 export default async function handler(req,res) {
+
+    res.setHeader("Access-Control-Allow-Origin", "chrome-extension://janphbokcibfhhfofodndfpcecffjkhc"); // or specify extension origin
+   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
     if(req.method!=="POST"){
         return res.status(405).json({error:"Only POST requests allowed"});
     }
