@@ -22,7 +22,7 @@ export default async function handler(req,res) {
        return res.status(400).json({ error: "Invalid JSON format" });
     }
   }
-       const {question,pageText} = req.body;
+       const {question,pageText} = body;
     
     if(!question || !pageText){
         return res.status(400).json({error:"Missing question or pagetext"});
