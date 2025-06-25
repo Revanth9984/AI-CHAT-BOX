@@ -28,16 +28,19 @@ export default async function handler(req,res) {
         return res.status(400).json({error:"Missing question or pagetext"});
     }
 
-    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+    const GROQ_API_KEY = process.env.GROQ_API_KEY;
+    if(!GROQ_API_KEY){
+        return res.status(500).json({error:"Missing API key"});
+    }
     try{
-        const gptResponse = await fetch("https://api.openai.com/v1/chat/completions",{
+        const gptResponse = await fetch("https://api.groq.com/openai/v1/chat/completions",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${OPENAI_API_KEY}`
+                "Authorization": `Bearer ${GROQ_API_KEY}`
             },
             body: JSON.stringify({
-                model: "gpt-3.5-turbo",
+                model: "llama3-8b-8192",
                 messages: [
                     {role:"system", content: "You are a helpful assistant answering questions based on webpage content."},
                     {role:"user", content: `Page Content: ${pageText.substring(0,3000)}\n\n Question:${question}`}
