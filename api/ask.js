@@ -23,7 +23,7 @@ export default async function handler(req,res) {
     }
   }
        const {question,pageText} = body;
-    
+    console.log(question,pageText);
     if(!question || !pageText){
         return res.status(400).json({error:"Missing question or pagetext"});
     }
@@ -48,6 +48,9 @@ export default async function handler(req,res) {
         })
         //getting response from AI
         const result= await gptResponse.json();
+        if(result.error){
+            console.log(result.error.message);
+        }
         const aiAnswer= result.choices?.[0]?.message?.content?.trim() || "No answer generated";
 
         return res.status(200).json({answer: aiAnswer});
