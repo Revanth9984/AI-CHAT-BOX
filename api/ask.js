@@ -13,7 +13,17 @@ export default async function handler(req,res) {
     if(req.method!=="POST"){
         return res.status(405).json({error:"Only POST requests allowed"});
     }
-    const {question,pageText} = req.body;
+    
+    let body=req.body;
+    if (typeof req.body === "string") {
+  try{
+       body = JSON.parse(req.body);
+    } catch (err) {
+       return res.status(400).json({ error: "Invalid JSON format" });
+    }
+  }
+       const {question,pageText} = req.body;
+    
     if(!question || !pageText){
         return res.status(400).json({error:"Missing question or pagetext"});
     }
@@ -23,7 +33,7 @@ export default async function handler(req,res) {
         const gptResponse = await fetch("https://api.openai.com/v1/chat/completions",{
             method: "POST",
             headers: {
-                "Content-Type": "Application/json",
+                "Content-Type": "application/json",
                 "Authorization": `Bearer ${OPENAI_API_KEY}`
             },
             body: JSON.stringify({
