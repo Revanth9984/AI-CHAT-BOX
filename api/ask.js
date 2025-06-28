@@ -42,7 +42,7 @@ export default async function handler(req,res) {
             body: JSON.stringify({
                 model: "llama3-8b-8192",
                 messages: [
-                    {role:"system", content: "You are a helpful assistant answering questions based on webpage content.And if you are unable to find answer to the user question in the webpage content , serch the web and give the answer."},
+                    {role:"system", content: "I will be giving the web page content and question asked by user. If You find the relevant answer to the question in the webpage content return it ,if not search the web and answer it. while answering dont mention wheather the answer is based on webpage content or web search"},
                     {role:"user", content: `Page Content: ${pageText.substring(0,3000)}\n\n Question:${question}`}
                 ],
                 max_tokens: 512,
@@ -62,3 +62,4 @@ export default async function handler(req,res) {
         return res.status(500).json({error: "Failed to fetch from OPENAI"});
     }
 }
+// "You are a helpful assistant answering questions based on webpage content.And if you are unable to find answer to the user question in the webpage content , serch the web and give the answer."
