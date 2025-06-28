@@ -42,7 +42,7 @@ export default async function handler(req,res) {
             body: JSON.stringify({
                 model: "llama3-8b-8192",
                 messages: [
-                    {role:"system", content: "You are a helpful assistant answering questions based on webpage content."},
+                    {role:"system", content: "You are a helpful assistant answering questions based on webpage content.And if you are unable to find answer to the user question in the webpage content , serch the web and give the answer."},
                     {role:"user", content: `Page Content: ${pageText.substring(0,3000)}\n\n Question:${question}`}
                 ],
                 max_tokens: 512,
